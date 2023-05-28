@@ -4,6 +4,11 @@ import { useFonts } from 'expo-font';
 import Welcome from './src/screens/welcome';
 import SignUp from './src/screens/signup';
 import MainTab from './src/navigation/mainTab';
+import Todo from './src/screens/todo';
+import Notes from './src/screens/notes';
+import Encouragement from './src/screens/encouragement';
+import EditProfile from './src/screens/editProfile';
+
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -49,6 +54,10 @@ export default function App() {
           <Stack.Screen name='Welcome' component={Welcome} options={{ headerShown: false }}/>
           <Stack.Screen name='Sign Up' component={SignUp} options={{ headerShown: false }}/>
           <Stack.Screen name='MainTab' children={MainTab} options={{ headerShown: false }}/>
+          <Stack.Screen name='Notes' component={Notes} />
+          <Stack.Screen name='To Do List' component={Todo} />
+          <Stack.Screen name='Encouragement Notes!' component={Encouragement} /> 
+          <Stack.Screen name='Edit Profile' component={EditProfile} /> 
         </Stack.Navigator>
       </NavigationContainer>
     )

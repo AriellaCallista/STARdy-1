@@ -8,6 +8,10 @@ import MainTab from '../navigation/mainTab';
 
 import { FontAwesome } from '@expo/vector-icons';
 
+import { doc, setDoc, addDoc, collection} from "firebase/firestore"; 
+import { db } from '../../config';
+import { storage } from '../../config';
+import { ref, uploadBytes, listAll, getDownloadURL } from 'firebase/storage';
 
 
 export default function SignUp({navigation}) {
@@ -57,8 +61,21 @@ export default function SignUp({navigation}) {
 
 
   const pressHandler = () => {
+    setDoc(doc(db, "users", "user"), {
+      name: name,
+      gender: gender,
+      major: major,
+      year: year,
+    }).then(() => {
+      // data saved successfully
+      console.log('data submitted');
+    }).catch((error) => {
+      //the write failed
+      console.log(error)
+    });
     navigation.navigate('MainTab');
   }
+
 
   const [name, setName] = useState(''); 
   const [gender, setGender] = useState(''); 

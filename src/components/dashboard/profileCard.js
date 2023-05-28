@@ -5,6 +5,8 @@ import { FontAwesome } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import ProgressBar from './progressBar';
 
+import { db } from '../../../config';
+import { doc, getDoc, get, connectFirestoreEmulator} from "firebase/firestore";
 
 const ProfileCard = ({ nav }) => {
 
@@ -16,6 +18,18 @@ const ProfileCard = ({ nav }) => {
     const[major, setMajor] = useState('Computer Science')
     const[year, setYear] = useState('Year 2')
     const[gender, setGender] = useState('F')
+
+    const docRef = doc(db, "users", "user");
+
+    getDoc(docRef)
+        .then((doc) => {
+            setName(doc.get('name'))
+            setMajor(doc.get('major'))
+            setYear(doc.get('year'))
+            setGender(doc.get('gender'))
+            // console.log(doc.get('name'));
+            // console.log(doc.data(), doc.id)
+        })   
 
     return (
         

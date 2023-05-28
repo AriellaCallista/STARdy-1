@@ -1,5 +1,6 @@
 import {React, useState, useEffect} from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Alert, Image } from 'react-native'
+import * as ImagePicker from 'expo-image-picker'; 
 
 import { FontAwesome } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
@@ -13,6 +14,21 @@ const ProfileCard = ({ nav }) => {
     const editProfile = () => {
         nav.navigate('Edit Profile');
     }
+
+    const [image, setImage] = useState(null);
+
+    const pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 0
+        });
+
+        if (!result.canceled) {
+        setImage(result.assets[0].uri);
+        } 
+    };
 
     const[name, setName] = useState('Ariella Callista')
     const[major, setMajor] = useState('Computer Science')
@@ -61,8 +77,14 @@ const ProfileCard = ({ nav }) => {
                     borderRadius: 90 /2,
                    
                 }}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={pickImage}>
                         <FontAwesome name='user-circle-o' size={75} color='#007788' />
+                        <Image source={{uri: image}} style={{
+                            width: 75,
+                            height: 75,
+                            borderRadius: 75 /2,
+                            position: 'absolute'
+                        }} />
                     </TouchableOpacity>
                 </View>
                     

@@ -3,11 +3,13 @@ import { View, Text, StyleSheet, TouchableOpacity, Alert, Image } from 'react-na
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 
-const goToLeaderboard = () => {
-    Alert.alert('Leaderboard WIP')
-}
 
-const ProgressBar = () => {
+
+const ProgressBar = ({nav}) => {
+
+    const goToLeaderboard = () => {
+        nav.navigate("LeaderBoard")
+    }
 
     const [width, setWidth] = useState('90%');
 
@@ -59,7 +61,7 @@ const ProgressBar = () => {
                 //left:0
 
             }}>
-                <TouchableOpacity onPress={goToLeaderboard}>
+                {/* <TouchableOpacity onPress={goToLeaderboard}>
                 <Image source={require('../../../assets/star-icon.png')} 
                         style={{
                             width: 50,
@@ -67,7 +69,7 @@ const ProgressBar = () => {
 
                         }} />
 
-                </TouchableOpacity>
+                </TouchableOpacity> */}
                 
             </View>
 

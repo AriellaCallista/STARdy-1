@@ -9,7 +9,7 @@ import Notes from './src/screens/notes';
 import Encouragement from './src/screens/encouragement';
 import EditProfile from './src/screens/editProfile';
 
-import NoteDetail from './src/components/notes/noteDetail';
+import NoteDetail from './src/components/dashboard/notes/noteDetail';
 
 
 import { NavigationContainer } from '@react-navigation/native';
@@ -17,6 +17,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { Feather } from '@expo/vector-icons'
 import NoteProvider from './src/context/noteProvider';
+import Leaderboard from './src/screens/leaderboard';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -62,7 +64,9 @@ export default function App() {
             <Stack.Screen name='To Do List' component={Todo} />
             <Stack.Screen name='Encouragement Notes!' component={Encouragement} /> 
             <Stack.Screen name='Edit Profile' component={EditProfile} /> 
+            <Stack.Screen name='Leaderboard' component={Leaderboard} />
             <Stack.Screen name='NoteDetail' component={NoteDetail} />
+            
           </Stack.Navigator>
         </NoteProvider>
       

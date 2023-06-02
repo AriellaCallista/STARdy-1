@@ -3,13 +3,13 @@ import React, { useState, useEffect } from 'react'
 import { Entypo } from '@expo/vector-icons';
 
 // import SearchBar from 'react-native-elements/dist/searchbar/SearchBar-ios';
-import SearchBar from '../components/notes/searchBar';
-import NotePage from '../components/notes/notePage';
+import SearchBar from '../components/dashboard/notes/searchBar';
+import NotePage from '../components/dashboard/notes/notePage';
 
 import { useNotes } from '../context/noteProvider';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import NoteInputModal from '../components/notes/noteInputModal';
+import NoteInputModal from '../components/dashboard/notes/noteInputModal';
 import { FlatList } from 'react-native-gesture-handler';
 
 

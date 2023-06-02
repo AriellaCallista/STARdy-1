@@ -13,7 +13,14 @@ const ProfileCard = ({ nav }) => {
 
     const editProfile = () => {
         nav.navigate('Edit Profile');
+        //nav.navigate('Leaderboard')
     }
+
+    const goToLeaderboard = () => {
+        nav.navigate('Leaderboard');
+    }
+
+   
 
     const [image, setImage] = useState(null);
 
@@ -112,11 +119,39 @@ const ProfileCard = ({ nav }) => {
                         </View>
 
                         <View style={{
-                            marginRight: 12
+                            //marginRight: 12
+                            flexDirection: 'column',
+                            alignContent: 'center',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+
+                            
+                            //marginBottom: 100
+
                         }}>
-                            <TouchableOpacity onPress={editProfile}>
-                                <Feather name='edit' size={20} color={'#007788'} />
-                            </TouchableOpacity>
+                            
+
+                                <TouchableOpacity style={{paddingTop: 50}}onPress={editProfile}>
+                                    <Feather name='edit' size={20} color={'#007788'} />
+                                </TouchableOpacity>
+
+                               
+                                    <TouchableOpacity style={{ width: 30, height: 30}}onPress={goToLeaderboard}>
+                                        <Image source={require('../../../assets/star-icon.png')} 
+                                                style={{
+                                                    width: 30,
+                                                    height: 40,
+                                                    
+
+                                                }} />
+
+                                    </TouchableOpacity>
+
+                                
+                               
+
+                            
+                           
                             
                         </View>
                     
@@ -182,7 +217,9 @@ const ProfileCard = ({ nav }) => {
                 flex: 1,
                 marginTop: -6
             }}>
-                <ProgressBar />
+               
+                <ProgressBar nav={nav}/>
+               
 
             </View>
 

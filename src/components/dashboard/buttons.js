@@ -4,6 +4,8 @@ import { View, Text, StyleSheet, TouchableHighlight, Alert } from 'react-native'
 import { Entypo } from '@expo/vector-icons'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
+import Notes from '../../screens/notes'
+
 export default function Buttons({ nav }) {
 
     const toDo = () => {
@@ -11,7 +13,9 @@ export default function Buttons({ nav }) {
     }
     
     const notes = () => {
+        <Notes nav={nav} />
         nav.navigate('Notes');
+        
     }
     
     const encouragement = () => {

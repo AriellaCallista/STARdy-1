@@ -9,11 +9,14 @@ import Notes from './src/screens/notes';
 import Encouragement from './src/screens/encouragement';
 import EditProfile from './src/screens/editProfile';
 
+import NoteDetail from './src/components/notes/noteDetail';
+
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { Feather } from '@expo/vector-icons'
+import NoteProvider from './src/context/noteProvider';
 
 const Stack = createNativeStackNavigator();
 
@@ -35,31 +38,36 @@ export default function App() {
     return (
 
       <NavigationContainer>
-        <Stack.Navigator screenOptions={({ navigation }) => ({
-          headerTitleStyle: {
-            color: '#f6f6f6'
-          },
-          headerStyle: {
-            backgroundColor: '#007788'
-          },
-          headerTitleAlign: 'center',
-          headerLeft: () => (
-            <Feather
-              name='arrow-left' 
-              size={22} 
-              onPress={() => navigation.goBack() }
-              color='#f6f6f6' />
-          )
-        })}>
-          <Stack.Screen name='Welcome' component={Welcome} options={{ headerShown: false }}/>
-          <Stack.Screen name='Sign Up' component={SignUp} options={{ headerShown: false }}/>
-          <Stack.Screen name='MainTab' children={MainTab} options={{ headerShown: false }}/>
-          <Stack.Screen name='Notes' component={Notes} />
-          <Stack.Screen name='To Do List' component={Todo} />
-          <Stack.Screen name='Encouragement Notes!' component={Encouragement} /> 
-          <Stack.Screen name='Edit Profile' component={EditProfile} /> 
-        </Stack.Navigator>
+        <NoteProvider>
+          <Stack.Navigator screenOptions={({ navigation }) => ({
+            headerTitleStyle: {
+              color: '#f6f6f6'
+            },
+            headerStyle: {
+              backgroundColor: '#007788'
+            },
+            headerTitleAlign: 'center',
+            headerLeft: () => (
+              <Feather
+                name='arrow-left' 
+                size={22} 
+                onPress={() => navigation.goBack() }
+                color='#f6f6f6' />
+            )
+          })}>
+            <Stack.Screen name='Welcome' component={Welcome} options={{ headerShown: false }}/>
+            <Stack.Screen name='Sign Up' component={SignUp} options={{ headerShown: false }}/>
+            <Stack.Screen name='MainTab' children={MainTab} options={{ headerShown: false }}/>
+            <Stack.Screen name='Notes' component={Notes} />
+            <Stack.Screen name='To Do List' component={Todo} />
+            <Stack.Screen name='Encouragement Notes!' component={Encouragement} /> 
+            <Stack.Screen name='Edit Profile' component={EditProfile} /> 
+            <Stack.Screen name='NoteDetail' component={NoteDetail} />
+          </Stack.Navigator>
+        </NoteProvider>
+      
       </NavigationContainer>
+     
     )
   }
 }

@@ -63,7 +63,7 @@ const Notes = ({navigation}) => {
             justifyContent: 'space-between',
             flexDirection: 'row',
             //alignContent: 'space-between',
-            marginBottom: 15 }}
+            }}
           keyExtractor={item => item.id.toString()} 
           renderItem={({ item }) => <NotePage onPress={() => openNote(item)} item={item} />}
           />

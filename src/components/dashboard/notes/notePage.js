@@ -16,8 +16,8 @@ const width = Dimensions.get('window').width - 40;
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#007788',
-        width: width / 2 - 20,
+        backgroundColor: 'white',
+        width: width / 2 - 10,
         padding: 8,
         borderRadius: 10,
         marginTop: 20,
@@ -30,12 +30,12 @@ const styles = StyleSheet.create({
 
     },
     title: {
-        color: 'white',
+        color: '#007788',
         fontWeight: 'bold',
         fontSize: 17
     },
     desc: {
-        color: 'white'
+        color: '#007788'
     }
 })
 

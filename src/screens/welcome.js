@@ -36,8 +36,8 @@ const styles=StyleSheet.create({
     button: {
         padding: 19,
         backgroundColor: '#007788',
-        position: 'absolute',
-        bottom: '25%',
+        //position: 'absolute',
+        marginTop: 520,
         borderRadius: 15
     },
     buttonText: {

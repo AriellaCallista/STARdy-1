@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Image, TouchableOpacity, Alert} from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, Image, TouchableOpacity, Alert, Platform} from 'react-native';
 import { Avatar } from "react-native-elements";
 
 import RNPickerSelect from 'react-native-picker-select';
@@ -129,27 +129,29 @@ return (
         style={styles.input}
         onChangeText={(value) => setName(value)} />
 
-      <Text style={{
-        position: 'relative',
-        left: 12,
-      }}>Enter Gender:</Text>
-      {/* <TextInput 
-        placeholder='e.g. F/M/NIL' 
-        value={gender}
-        style={styles.input}
-        onChangeText={(value) => setGender(value)} /> */}
+        <Text style={{
+            position: 'relative',
+            left: 12,
+          }}>Enter Gender:</Text>
 
-      <RNPickerSelect
-      useNativeAndroidPickerStyle={false}
-      placeholder={{ label: "Select your gender", value: null}}
-                onValueChange={(value) => setGender(value)}
-                items={[
-                    { label: "F", value: "F" },
-                    { label: "M", value: "M" },
-                    { label: "NIL", value: "NIL" },
-                ]}
-                style={pickerSelectStyles}
-            />
+        { Platform.OS == 'ios' 
+          ?  <RNPickerSelect
+          //useNativeAndroidPickerStyle={true}
+          placeholder={{ label: "Select your gender", value: null}}
+                    onValueChange={(value) => setGender(value)}
+                    items={[
+                        { label: "F", value: "F" },
+                        { label: "M", value: "M" },
+                        { label: "NIL", value: "NIL" },
+                    ]}
+                    style={pickerSelectStyles}
+                />
+          :     <TextInput 
+          placeholder='e.g. F/M/NIL' 
+          value={gender}
+          style={styles.input}
+          onChangeText={(value) => setGender(value)} />
+        }  
 
       <Text style={{
         position: 'relative',
@@ -161,30 +163,32 @@ return (
         style={styles.input}
         onChangeText={(value) => setMajor(value)} />
 
+
       <Text style={{
         position: 'relative',
         left: 12,
       }}>Enter Year:</Text>
-      <RNPickerSelect
-      useNativeAndroidPickerStyle={false}
-      placeholder={{ label: "Select your year of study", value: null}}
-                onValueChange={(value) => setYear(value)}
-                items={[
-                    { label: "1", value: "1" },
-                    { label: "2", value: "2" },
-                    { label: "3", value: "3" },
-                    { label: "4", value: "4" },
-                    { label: "5", value: "5" },
-                    { label: "6 and above", value: "6 and above" },
-                ]}
-                style={pickerSelectStyles}
+      { Platform.OS == 'ios' 
+        ? <RNPickerSelect
+            useNativeAndroidPickerStyle={false}
+            placeholder={{ label: "Select your year of study", value: null}}
+                      onValueChange={(value) => setYear(value)}
+                      items={[
+                          { label: "1", value: "1" },
+                          { label: "2", value: "2" },
+                          { label: "3", value: "3" },
+                          { label: "4", value: "4" },
+                          { label: "5", value: "5" },
+                          { label: "6 and above", value: "6 and above" },
+                      ]}
+                      style={pickerSelectStyles}
             />
-
-
-      {/* <Text style={styles.result}>name: {name}, gender: {gender}, major: {major}, year: {year}</Text> */}
-
-      {/* <FlatButton text='Sign Up' />
-      <FlatButton onPress={create}></FlatButton> */}
+        :    <TextInput 
+                placeholder='e.g. Year 1' 
+                value={major}
+                style={styles.input}
+                onChangeText={(value) => setYear(value)} />
+      }
 
       <TouchableOpacity onPress={pressHandler}>
         <View style={styles.button}>
@@ -192,10 +196,6 @@ return (
         </View>
       </TouchableOpacity>
     </View>
-    
-
-    
-  
   </View>
 );
 }
@@ -231,7 +231,7 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     paddingHorizontal: 15,
     backgroundColor: '#007788',
-    position: 'centre',
+    //position: 'centre',
     left: 108,
     marginTop: 20,
     width: 100,

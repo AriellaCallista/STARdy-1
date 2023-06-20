@@ -60,11 +60,11 @@ export default function App() {
           })}>
             <Stack.Screen name='Welcome' component={Welcome} options={{ headerShown: false }}/>
             <Stack.Screen name='Sign Up' component={SignUp} options={{ headerShown: false }}/>
+            <Stack.Screen name='Profile' component={Profile} options={{ headerShown: false }}/>
             <Stack.Screen name='MainTab' children={MainTab} options={{ headerShown: false }}/>
             <Stack.Screen name='Notes' component={Notes} />
             <Stack.Screen name='To Do List' component={Todo} />
             <Stack.Screen name='Encouragement Notes!' component={Encouragement} /> 
-            <Stack.Screen name='Edit Profile' component={EditProfile} /> 
             <Stack.Screen name='Leaderboard' component={Leaderboard} />
             <Stack.Screen name='NoteDetail' component={NoteDetail} />
             

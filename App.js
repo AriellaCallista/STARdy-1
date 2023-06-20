@@ -8,6 +8,7 @@ import Todo from './src/screens/todo';
 import Notes from './src/screens/notes';
 import Encouragement from './src/screens/encouragement';
 import EditProfile from './src/screens/editProfile';
+import Login from './src/screens/login';
 
 import NoteDetail from './src/components/dashboard/notes/noteDetail';
 

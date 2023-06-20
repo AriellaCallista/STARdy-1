@@ -4,7 +4,7 @@ import React from 'react'
 const Analytics = () => {
   return (
     <View>
-      <Text>A</Text>
+      <Text>Analytics</Text>
     </View>
   )
 }

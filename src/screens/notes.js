@@ -11,6 +11,7 @@ import { useNotes } from '../context/noteProvider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import NoteInputModal from '../components/dashboard/notes/noteInputModal';
 import { FlatList } from 'react-native-gesture-handler';
+import { authentication } from '../../config';
 
 
 
@@ -20,18 +21,15 @@ const Notes = ({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const {notes, setNotes} = useNotes();
 
-
   const addNotes = () => {
     setModalVisible(true);
   }
   
-  
-
   const handleOnSubmit = async (title, description) => {
     const note = {id: Date.now(), title, description, time: Date.now() }
     const updatedNotes = [...notes, note];
     setNotes(updatedNotes);
-    await AsyncStorage.setItem('notes', JSON.stringify(updatedNotes))
+    await AsyncStorage.setItem(authentication.currentUser.uid +'/notes', JSON.stringify(updatedNotes))
   }
 
   const openNote = (note) => {

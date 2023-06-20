@@ -6,7 +6,7 @@ import { StyleSheet, View, Text, TouchableOpacity, Alert, Image } from 'react-na
 export default function Welcome({ navigation }) {
 
     const pressHandler = () => {
-        navigation.navigate('Sign Up');
+        navigation.navigate('Login');
     }
 
     return (

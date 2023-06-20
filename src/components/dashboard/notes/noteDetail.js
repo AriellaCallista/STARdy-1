@@ -18,8 +18,11 @@ const formatDate = (ms) => {
     const hrs = date.getHours();
     const min = date.getMinutes();
     const sec = date.getSeconds();
+    const time = date.getUTCDate();
 
-    return `${day}/${month}/${year} - ${hrs}:${min}:${sec}`
+    //return `${day}/${month}/${year} - ${hrs}:${min}:${sec}`
+    return `${day}/${min}/${sec} - ${time}`
+
 
 }
 
@@ -30,13 +33,13 @@ const NoteDetail = (props) => {
     const [isEdit, setIsEdit] = useState(false);
 
     const deleteNote = async () => {
-        const result = await AsyncStorage.getItem('notes')
+        const result = await AsyncStorage.getItem(authentication.currentUser.uid +'/notes')
         let notes = []
         if (result != null) notes = JSON.parse(result)
 
         const newNotes = notes.filter(n => n.id != note.id)
         setNotes(newNotes);
-        await AsyncStorage.setItem('notes', JSON.stringify(newNotes))
+        await AsyncStorage.setItem(authentication.currentUser.uid +'/notes', JSON.stringify(newNotes))
         props.navigation.goBack();
     }
 
@@ -59,7 +62,7 @@ const NoteDetail = (props) => {
     }
 
     const handleUpdate = async (title, desc, time) => {
-        const result = await AsyncStorage.getItem('notes')
+        const result = await AsyncStorage.getItem(authentication.currentUser.uid +'/notes')
         let notes = [];
         if (result != null) notes = JSON.parse(result);
 
@@ -75,7 +78,7 @@ const NoteDetail = (props) => {
             return n;
         })
         setNotes(newNotes);
-        await AsyncStorage.setItem('notes', JSON.stringify(newNotes));
+        await AsyncStorage.setItem(authentication.currentUser.uid +'/notes', JSON.stringify(newNotes));
     }
 
     const handleOnClose = () => setShowModal(false)

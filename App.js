@@ -1,11 +1,7 @@
 import { Alert, StyleSheet, Text, View } from 'react-native';
 import { useFonts } from 'expo-font';
 
-import Welcome from './src/screens/welcome';
-import Profile from './src/screens/profile';
 import MainTab from './src/navigation/mainTab';
-import Login from './src/screens/login';
-import SignUp from './src/screens/signup';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -45,10 +41,6 @@ export default function App() {
                 color='#f6f6f6' />
             )
           })}>
-            <Stack.Screen name='Welcome' component={Welcome} options={{ headerShown: false }}/>
-            <Stack.Screen name='Login' component={Login} options={{ headerShown: false }}/>
-            <Stack.Screen name='Sign Up' component={SignUp} options={{ headerShown: false }}/>
-            <Stack.Screen name='Profile' component={Profile} options={{ headerShown: false }}/>
             <Stack.Screen name='Main Tab' component={MainTab} options={{ headerShown: false }}/>
            
           </Stack.Navigator>

@@ -4,9 +4,9 @@ import React from 'react'
 const HomeChat = () => {
   return (
     <View>
-      <Text> HomeChat </Text>
+      <Text>HomeChat</Text>
     </View>
   )
 }
 
-export default HomeChat
+export default HomeChat;

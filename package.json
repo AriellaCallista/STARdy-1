@@ -20,7 +20,9 @@
     "react": "18.2.0",
     "react-native": "0.71.8",
     "react-native-elements": "^3.4.3",
-    "react-native-picker-select": "^8.0.4"
+    "react-native-picker-select": "^8.0.4",
+    "expo-device": "~5.2.1",
+    "expo-notifications": "~0.18.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

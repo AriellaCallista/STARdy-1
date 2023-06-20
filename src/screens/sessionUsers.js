@@ -8,15 +8,15 @@ import {
   Alert,
   TextInput,
   FlatList,
+  Platform,
 } from 'react-native'
 import { FontAwesome } from '@expo/vector-icons'; 
 import { SimpleLineIcons } from '@expo/vector-icons';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'; 
-
-import Friends from '../components/sessionUsers/friends';
-import Random from '../components/sessionUsers/random'; 
+ 
+import random from '../components/sessionUsers/random';
+import friends from '../components/sessionUsers/friends';
 import Add from '../components/sessionUsers/add';
-
 
 export default function SessionUsers() {
 
@@ -26,19 +26,19 @@ export default function SessionUsers() {
             screenOptions={{
               tabBarLabelStyle: { fontSize: 14 },
               tabBarLabelStyle: { color: '#f6f6f6'},
-              tabBarStyle: { backgroundColor: '#007788', paddingTop: 50 }, 
+              tabBarStyle: { backgroundColor: '#007788', paddingTop: (Platform.OS == 'ios') ? 60 : 20},
               
             }}
           >
 
     <focusSession.Screen 
       name='Friends' 
-      component={Friends} 
+      component={friends} 
     />
 
     <focusSession.Screen 
       name='Random' 
-      component={Random}
+      component={random}
       />
 
     <focusSession.Screen 

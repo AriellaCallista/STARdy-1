@@ -1,271 +1,159 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Image, TouchableOpacity, Alert} from 'react-native';
-import { Avatar } from "react-native-elements";
+import { View, Text, Image, TextInput, StyleSheet, TouchableOpacity, BackHandler, Alert } from 'react-native'
+import React, {useState, useEffect} from 'react';
 
-import RNPickerSelect from 'react-native-picker-select';
-import * as ImagePicker from 'expo-image-picker';
+import { MaterialIcons } from '@expo/vector-icons';
+
+//import auth from '@react-native-firebase/auth';
+
+
+import { authentication } from '../../config';
+import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import MainTab from '../navigation/mainTab';
 
-import { FontAwesome } from '@expo/vector-icons';
 
-import { doc, setDoc, addDoc, collection} from "firebase/firestore"; 
-import { db } from '../../config';
-import { storage } from '../../config';
-import { ref, uploadBytes, listAll, getDownloadURL } from 'firebase/storage';
+export default function SignUp({ navigation }) {
 
+    const [user, setUser] = useState(null);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-export default function SignUp({navigation}) {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // const [image, setImage] = useState(null);
-
-  // const pickImage = async () => {
-  //   let result = await ImagePicker.launchImageLibraryAsync({
-  //     mediaTypes: ImagePicker.MediaTypeOptions.All,
-  //     allowsEditing: true,
-  //     aspect: [4, 3],
-  //     quality: 0
-  //   });
-
-  //   const url = uploadImage(result.assets[0].uri);
-
-  //   if (!result.canceled) {
-  //     setImage(result.assets[0].uri);
-  //   } 
-  // };
-
-  // const uploadImage = async (uri) => {
-  //   const blob = await new Promise((resolve, reject) => {
-  //     const xhr = new XMLHttpRequest();
-  //     xhr.onload = function () {
-  //       resolve(xhr.response);
-  //     };
-  //     xhr.onerror = function (e) {
-  //       console.log(e);
-  //       reject(new TypeError("Network request failed"));
-  //     };
-  //     xhr.responseType = "blob";
-  //     xhr.open("GET", uri, true);
-  //     xhr.send(null);
-  //   });
-
-  //   try {
-  //     const storageRef = ref(storage, `image/image-${Date.now()}`);
-  //      const result = await uploadBytes(storageRef, blob);
-  //     blob.close();
-  //     return await getDownloadURL(storageRef);
-  //   } catch (error) {
-  //     Alert.alert(`Error : ${error}`);
-  //   }
-  
-  // }
-
-
-  const pressHandler = () => {
-    setDoc(doc(db, "users", "user"), {
-      name: name,
-      gender: gender,
-      major: major,
-      year: year,
-    }).then(() => {
-      // data saved successfully
-      console.log('data submitted');
-    }).catch((error) => {
-      //the write failed
-      console.log(error)
-    });
-    navigation.navigate('MainTab');
-  }
-
-
-  const [name, setName] = useState(''); 
-  const [gender, setGender] = useState(''); 
-  const [major, setMajor] = useState(''); 
-  const [year, setYear] = useState(''); 
+    // useEffect(() => {
+    //     onAuthStateChanged(authentication, (user) => {
+    //       if (user) {
+    //         console.log("USER IS STILL LOGGED IN: " , user);
+    //         setUser(user);
+    //         //navigation.navigate('Main Tab');
+    //         //setIsLoggedIn(true);
+    //       }
+    //     });
+    //   }, [user]);
 
 
 
+    const handleSignup = () => {
+        createUserWithEmailAndPassword(authentication, email, password)
+          .then((userCredential) => {
+            console.log('User logged in successfully:',  userCredential);
+            setUser(userCredential);
+            console.log(user);
+            navigation.navigate('Profile');
+          })
+          .catch((error) => {
+            console.log('Error', error);
+            Alert.alert('' + error);
+          });
+          
+      };
 
-return (
+      if (!isLoggedIn) {
+        return (
+            <View style={{flex: 1, backgroundColor: '#eef1e1', alignItems: 'center'}}>
+            <View style={{justifyContent: 'center', alignItems: 'center', marginTop: 20}}>
+                <Image 
+                    source={require('../../assets/star-icon.png')} 
+                    style={{width: 170, height: 170,marginTop: 20}} />
+                <Text style={{fontSize: 30, 
+                              fontWeight: 'bold', 
+                            }}>Register</Text>
 
-  <View style={styles.container}>
-    
-  
-    <View style={{
-      marginTop: -30
-    }}>
+                <View style={{
+                    padding: 15
+                }}>
 
-    <TouchableOpacity>
-      <View style={{
-        flexDirection: 'column',
-        justifyContent: 'center',
-        ...styles.logo
-      }}>
-        <Text style={{
-          color: 'white',
-          fontSize: 15
-        }}>Upload Image</Text>
+                </View>
+             
+            </View>
+            <TextInput 
+                value={email} 
+                style={styles.input} 
+                placeholder='Enter your email'
+                onChangeText={text => setEmail(text)}/>
+            <TextInput 
+                value={password} 
+                style={styles.input} 
+                placeholder='Enter your password'
+                secureTextEntry={true}
+                onChangeText={text => setPassword(text)}/>
 
-      </View>
-      {/* <FontAwesome name='user-circle-o' size={90} color='#007788' />   */}
-    </TouchableOpacity>
-    </View>
+            <Text
+                style={{color: '#00008B', 
+                        right: -29,
+                        marginTop: 10}}
+                onPress={() => navigation.navigate('Login')}
+            
+            >
+                Already have an account? Log in here
+            </Text>
 
-    <View style={{
-      height: 25
-    }}>
+            <TouchableOpacity onPress={handleSignup}>
+                <View style={styles.button}>
+                    <Text style={styles.buttonText}>Sign Up</Text>
+                </View>
+            </TouchableOpacity>
 
-    </View>
+            
+            </View>
+        )
 
-    <View style={{
-      marginBottom: -10
-    }}>
-      <Text style={{
-        position: 'relative',
-        left: 12,
-      }}>Enter Name:</Text>
-      <TextInput 
-        placeholder='e.g. John Doe' 
-        value={name}
-        style={styles.input}
-        onChangeText={(value) => setName(value)} />
-
-      <Text style={{
-        position: 'relative',
-        left: 12,
-      }}>Enter Gender:</Text>
-      {/* <TextInput 
-        placeholder='e.g. F/M/NIL' 
-        value={gender}
-        style={styles.input}
-        onChangeText={(value) => setGender(value)} /> */}
-
-      <RNPickerSelect
-      useNativeAndroidPickerStyle={false}
-      placeholder={{ label: "Select your gender", value: null}}
-                onValueChange={(value) => setGender(value)}
-                items={[
-                    { label: "F", value: "F" },
-                    { label: "M", value: "M" },
-                    { label: "NIL", value: "NIL" },
-                ]}
-                style={pickerSelectStyles}
-            />
-
-      <Text style={{
-        position: 'relative',
-        left: 12,
-      }}>Enter Major:</Text>
-      <TextInput 
-        placeholder='e.g. Science (no short form)' 
-        value={major}
-        style={styles.input}
-        onChangeText={(value) => setMajor(value)} />
-
-      <Text style={{
-        position: 'relative',
-        left: 12,
-      }}>Enter Year:</Text>
-      <RNPickerSelect
-      useNativeAndroidPickerStyle={false}
-      placeholder={{ label: "Select your year of study", value: null}}
-                onValueChange={(value) => setYear(value)}
-                items={[
-                    { label: "1", value: "1" },
-                    { label: "2", value: "2" },
-                    { label: "3", value: "3" },
-                    { label: "4", value: "4" },
-                    { label: "5", value: "5" },
-                    { label: "6 and above", value: "6 and above" },
-                ]}
-                style={pickerSelectStyles}
-            />
-
-
-      {/* <Text style={styles.result}>name: {name}, gender: {gender}, major: {major}, year: {year}</Text> */}
-
-      {/* <FlatButton text='Sign Up' />
-      <FlatButton onPress={create}></FlatButton> */}
-
-      <TouchableOpacity onPress={pressHandler}>
-        <View style={styles.button}>
-          <Text style={styles.buttonText}>Submit</Text>
-        </View>
-      </TouchableOpacity>
-    </View>
-    
-
-    
-  
-  </View>
-);
+      } else {
+            return (
+                <View style={{flex: 1}}>
+                    <MainTab />
+                </View>
+            )
+      }
+   
 }
 
-
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#eef1e1ff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  input: {
-    backgroundColor: '#f6f6f6',
-    //borderWidth: 0.5,
-    borderColor: '#777',
-    padding: 8,
-    margin: 10,
-    width: 300,
-    marginBottom: 20,
-    //borderRadius: 8
-  }, 
-  logo: {
-    width: 100,
-    height: 100,
-    borderRadius: 100 / 2,
-    backgroundColor: '#007788', 
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  button: {
-    borderRadius: 4,
-    paddingVertical: 14,
-    paddingHorizontal: 15,
-    backgroundColor: '#007788',
-    position: 'centre',
-    left: 108,
-    marginTop: 20,
-    width: 100,
-    height: 53
-  },
-  buttonText: {
-    color: '#f6f6f6',
-    fontWeight: 'bold',
-    fontFamily: 'RowdiesRegular', 
-    fontSize: 20,
-    textAlign: 'center',
-  },
-});
-
-const pickerSelectStyles = StyleSheet.create({
-  inputIOS: {
-    //fontSize: 14,
-    padding: 8,
-    //borderWidth: 0.5,
-    borderColor: '#777',
-    //borderRadius: 8,
-    backgroundColor: '#f6f6f6',
-    //paddingRight: 10,
-    marginBottom: 20,
-    margin: 10,
-  },
-  inputAndroid: {
-      fontSize: 16,
-      paddingHorizontal: 10,
-      paddingVertical: 8,
-      borderWidth: 0.5,
-      borderColor: 'purple',
-      borderRadius: 8,
-      color: 'black',
-      paddingRight: 30 // to ensure the text is never behind the icon
-  }
-});
+    container:{
+        flex:1, 
+        backgroundColor: '#eef1e1',
+        alignItems: 'center'
+    },
+    // btn:{
+    //     marginHorizontal:10,
+    //     marginBottom:40
+    // }
+    input: {
+        backgroundColor: '#f6f6f6',
+        //borderWidth: 0.2,
+        //borderColor: '#777',
+        padding: 10,
+        borderRadius: 15,
+        margin: 8,
+        //width: 300,
+        //marginBottom: 20,
+        marginHorizontal: 20,
+        width: 280,
+        height: 50
+        // top: -20
+    },
+    button: {
+        borderRadius: 15,
+        //paddingVertical: 14,
+        //paddingHorizontal: 15,
+        backgroundColor: '#007788',
+        //position: 'centre',
+        //left: 108,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        marginTop: 45,
+        width: 280,
+        height: 50, 
+        marginBottom: 10, 
+      },
+      buttonText: {
+        color: '#f6f6f6',
+        fontWeight: 'bold',
+        fontFamily: 'RowdiesRegular', 
+        fontSize: 18,
+        textAlign: 'center',
+      },
+      regText: {
+       
+  
+      }
+  })

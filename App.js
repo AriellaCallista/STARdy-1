@@ -5,6 +5,12 @@ import Welcome from './src/screens/welcome';
 import SignUp from './src/screens/signup';
 import Login from './src/screens/login';
 import Profile from './src/screens/profile';
+import Home from './src/screens/home';
+import Tasks from './src/screens/tasks';
+import EncourageMessage from './src/components/tasks/encourageMsg';
+import Goals from './src/components/tasks/goals';
+import Evidence from './src/components/tasks/evidence';
+import Verify from './src/components/tasks/verify';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -52,6 +58,14 @@ export default function App() {
           <Stack.Screen name='Sign Up' component={SignUp} options={{ headerShown: false }}/>
           <Stack.Screen name='Profile' component={Profile} options={{ headerShown: false }}/>
           <Stack.Screen name='Home' component={Home} /> 
+          <Stack.Screen 
+                name='Task' 
+                component={Tasks} /> 
+
+            <Stack.Screen name='Evidence' component={Evidence} /> 
+            <Stack.Screen name='Verify' component={Verify} /> 
+            <Stack.Screen name='Goals' component={Goals} /> 
+            <Stack.Screen name='Encouragement' component={EncourageMessage} />
         </Stack.Navigator>
       
       </NavigationContainer>

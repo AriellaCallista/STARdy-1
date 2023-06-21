@@ -1,12 +1,12 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-const Analytics = () => {
+const HomeChat = () => {
   return (
     <View>
-      <Text>Analytics</Text>
+      <Text>HomeChat</Text>
     </View>
   )
 }
 
-export default Analytics;
+export default HomeChat;

@@ -1,12 +1,12 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-const Analytics = () => {
+const SessionUsers = () => {
   return (
     <View>
-      <Text>Analytics</Text>
+      <Text>SessionUsers</Text>
     </View>
   )
 }
 
-export default Analytics;
+export default SessionUsers;

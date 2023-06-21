@@ -3,7 +3,7 @@ import { useFonts } from 'expo-font';
 
 import Login from './src/screens/login';
 import Chat from './src/screens/chat';
-
+import MainTab from './src/navigation/mainTab';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -44,7 +44,8 @@ export default function App() {
             )
           })}>
             <Stack.Screen name='Login' component={Login} options={{ headerShown: false }}/>
-
+            <Stack.Screen name='Main Tab' component={MainTab} options={{ headerShown: false }}/>
+            
               <Stack.Screen 
                 name='Chatroom' 
                 component={Chat} /> 

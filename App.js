@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { useFonts } from 'expo-font';
 
+import MainTab from './src/navigation/mainTab'; 
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -43,6 +44,7 @@ export default function App() {
               color='#f6f6f6' />
           )
         })}>
+        <Stack.Screen name='Main Tab' component={MainTab} options={{ headerShown: false }}/>
           
         </Stack.Navigator>
       </NavigationContainer>

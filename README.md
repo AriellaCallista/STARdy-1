@@ -1,8 +1,6 @@
 
 STARdy 
 
-NOTE: please clone and open the repository with ios simulator (iPhone 14 Pro Max -iOS 16.4) when using Xcode to do so. 
-
 Team Name: 
 Stardy
 

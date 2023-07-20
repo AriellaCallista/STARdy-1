@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { Alert, StyleSheet, Text, View } from 'react-native';
 import { useFonts } from 'expo-font';
 
 import Welcome from './src/screens/welcome';
@@ -8,13 +8,11 @@ import Profile from './src/screens/profile';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
 import { Feather } from '@expo/vector-icons'
-
-const Stack = createNativeStackNavigator();
 
 export default function App() {
 
+  const Stack = createNativeStackNavigator();
 
   const[fontsLoaded] = useFonts({
     PressStart: require('./assets/fonts/PressStart2P-Regular.ttf'),
@@ -23,7 +21,6 @@ export default function App() {
     UbuntuBold: require('./assets/fonts/Ubuntu-Bold.ttf'),
     UbuntuMedium: require('./assets/fonts/Ubuntu-Medium.ttf')
   });
-
 
   if (!fontsLoaded) {
     return null;
@@ -48,44 +45,21 @@ export default function App() {
           )
         })}>
           <Stack.Screen name='Welcome' component={Welcome} options={{ headerShown: false }}/>
-          <Stack.Screen name='Sign Up' component={Login} options={{ headerShown: false }}/>
           <Stack.Screen name='Sign Up' component={SignUp} options={{ headerShown: false }}/>
-          <Stack.Screen name='Profile' component={Profile} options={{ headerShown: false }}/>
+          <Stack.Screen name='Login' children={Login} options={{ headerShown: false }}/>
+          <Stack.Screen name='Profile' children={Profile} options={{ headerShown: false }}/>
         </Stack.Navigator>
       </NavigationContainer>
     )
   }
+
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#eef1e1',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-//   mainTab: {
-//     position: 'absolute',
-//     backgroundColor: '#eef1e1',
-//   },
-//   icon: {
-//     flex: 1,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//   }, 
-//   shadow: {
-//     shadowColor: '#007788',
-//     shadowOffset: {
-//       width: 0,
-//       height: 10,
-//     },
-//     shadowOpacity: 1,
-//     shadowRadius: 3.5,
-//     elevation: 5,
-//     zIndex: 999 
-//   },
-//   iconContainer: {
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   }
-// });
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});

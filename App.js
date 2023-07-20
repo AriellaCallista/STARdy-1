@@ -1,7 +1,6 @@
 import { Alert, StyleSheet, Text, View } from 'react-native';
 import { useFonts } from 'expo-font';
 
-
 import Welcome from './src/screens/welcome';
 import Profile from './src/screens/profile';
 import MainTab from './src/navigation/mainTab';
@@ -11,6 +10,12 @@ import Encouragement from './src/screens/encouragement';
 import EditProfile from './src/screens/editProfile';
 import Login from './src/screens/login';
 import SignUp from './src/screens/signup';
+import Verify from './src/components/tasks/verify';
+import Evidence from './src/components/tasks/evidence';
+import Leaderboard from './src/screens/leaderboard';
+import Tasks from './src/screens/tasks';
+import EncourageMessage from './src/components/tasks/encourageMsg';
+import Goals from './src/components/tasks/goals';
 import Chat from './src/screens/chat';
 import NoteDetail from './src/components/dashboard/notes/noteDetail';
 import { Feather } from '@expo/vector-icons';
@@ -20,7 +25,6 @@ import NoteProvider from './src/context/noteProvider';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './src/screens/home';
-
 
 export default function App() {
 
@@ -53,7 +57,7 @@ export default function App() {
               <Feather
                 name='arrow-left' 
                 size={22} 
-                onPress={() => navigation.goBack() }
+                onPress={() => navigation.goBack()}
                 color='#f6f6f6' />
             )
           })}>
@@ -94,7 +98,7 @@ export default function App() {
                     color='#f6f6f6' />
                 )
               })} /> 
-                          {/* <Stack.Screen
+            {/* <Stack.Screen
                 name='Tasks'
                 component={Tasks}
                 options={({route}) => ({
@@ -114,16 +118,19 @@ export default function App() {
                 component={Chat} /> 
             
 
+
+            <Stack.Screen name='Evidence' component={Evidence} /> 
+            <Stack.Screen name='Verify' component={Verify} /> 
+            <Stack.Screen name='Goals' component={Goals} /> 
             <Stack.Screen name='Encouragement' component={EncourageMessage} /> 
             <Stack.Screen name='Home' component={Home} /> 
             
           </Stack.Navigator>
         </NoteProvider>
-      
       </NavigationContainer>
-     
     )
   }
+
 }
 
 const styles = StyleSheet.create({

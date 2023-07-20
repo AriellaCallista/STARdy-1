@@ -20,6 +20,7 @@ import Chat from './src/screens/chat';
 import NoteDetail from './src/components/dashboard/notes/noteDetail';
 import { Feather } from '@expo/vector-icons';
 import NoteProvider from './src/context/noteProvider';
+import OnboardingScreen from './src/screens/onboardingScreen';
 
 
 import { NavigationContainer } from '@react-navigation/native';
@@ -65,6 +66,7 @@ export default function App() {
             <Stack.Screen name='Login' component={Login} options={{ headerShown: false }}/>
             <Stack.Screen name='Sign Up' component={SignUp} options={{ headerShown: false }}/>
             <Stack.Screen name='Profile' component={Profile} options={{ headerShown: false }}/>
+            <Stack.Screen name='OnboardingScreen' component={OnboardingScreen} options={{ headerShown: false }}/>
             <Stack.Screen name='Main Tab' component={MainTab} options={{ headerShown: false }}/>
             <Stack.Screen name='Notes' component={Notes} />
             <Stack.Screen name='NoteDetail' component={NoteDetail} />

@@ -5,6 +5,8 @@ import Welcome from './src/screens/welcome';
 import SignUp from './src/screens/signup';
 import Login from './src/screens/login';
 import Profile from './src/screens/profile';
+import MainTab from './src/navigation/mainTab';
+
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -13,6 +15,7 @@ import { Feather } from '@expo/vector-icons'
 
 export default function App() {
 
+  const Stack = createNativeStackNavigator();
   const Stack = createNativeStackNavigator();
 
   const[fontsLoaded] = useFonts({
@@ -45,17 +48,25 @@ export default function App() {
               color='#f6f6f6' />
           )
         })}>
-          <Stack.Screen name='Welcome' component={Welcome} options={{ headerShown: false }}/>
-          <Stack.Screen name='Sign Up' component={SignUp} options={{ headerShown: false }}/>
-          <Stack.Screen name='Login' children={Login} options={{ headerShown: false }}/>
-          <Stack.Screen name='Profile' children={Profile} options={{ headerShown: false }}/>
+            <Stack.Screen name='Welcome' component={Welcome} options={{ headerShown: false }}/>
+            <Stack.Screen name='Login' component={Login} options={{ headerShown: false }}/>
+            <Stack.Screen name='Main Tab' component={MainTab} options={{ headerShown: false }}/>
         </Stack.Navigator>
       </NavigationContainer>
     )
   }
 
+
 }
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
 const styles = StyleSheet.create({
   container: {
     flex: 1,

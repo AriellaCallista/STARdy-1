@@ -5,6 +5,7 @@ import Welcome from './src/screens/welcome';
 import Login from './src/screens/login'; 
 import MainTab from './src/navigation/mainTab';
 import SignUp from './src/screens/signup';
+import Profile from './src/screens/profile';
 
 
 
@@ -51,6 +52,7 @@ export default function App() {
             <Stack.Screen name='Welcome' component={Welcome} options={{ headerShown: false }}/>
             <Stack.Screen name='Login' component={Login} options={{ headerShown: false }}/>
             <Stack.Screen name='Sign Up' component={SignUp} options={{ headerShown: false }}/>
+            <Stack.Screen name='Profile' component={Profile} options={{ headerShown: false }}/>
             <Stack.Screen name='Main Tab' component={MainTab} options={{ headerShown: false }}/>
           </Stack.Navigator>
         </NoteProvider>

@@ -78,7 +78,7 @@ export default function Profile({navigation}) {
       //the write failed
       console.log(error)
     });
-    navigation.navigate('Main Tab');
+    navigation.navigate('OnboardingScreen');
   }
 
 

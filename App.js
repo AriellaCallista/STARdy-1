@@ -1,24 +1,25 @@
 import { Alert, StyleSheet, Text, View } from 'react-native';
 import { useFonts } from 'expo-font';
 
+
 import Welcome from './src/screens/welcome';
-import Login from './src/screens/login'; 
+import Profile from './src/screens/profile';
 import MainTab from './src/navigation/mainTab';
 import Todo from './src/screens/todo';
 import Notes from './src/screens/notes';
 import Encouragement from './src/screens/encouragement';
 import EditProfile from './src/screens/editProfile';
 import Login from './src/screens/login';
-
+import SignUp from './src/screens/signup';
+import Chat from './src/screens/chat';
 import NoteDetail from './src/components/dashboard/notes/noteDetail';
+import { Feather } from '@expo/vector-icons';
+import NoteProvider from './src/context/noteProvider';
 
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
-import { Feather } from '@expo/vector-icons'
-import NoteProvider from './src/context/noteProvider';
-import Leaderboard from './src/screens/leaderboard';
+import Home from './src/screens/home';
 
 
 export default function App() {
@@ -57,14 +58,64 @@ export default function App() {
             )
           })}>
             <Stack.Screen name='Welcome' component={Welcome} options={{ headerShown: false }}/>
+            <Stack.Screen name='Login' component={Login} options={{ headerShown: false }}/>
             <Stack.Screen name='Sign Up' component={SignUp} options={{ headerShown: false }}/>
             <Stack.Screen name='Profile' component={Profile} options={{ headerShown: false }}/>
-            <Stack.Screen name='MainTab' children={MainTab} options={{ headerShown: false }}/>
+            <Stack.Screen name='Main Tab' component={MainTab} options={{ headerShown: false }}/>
             <Stack.Screen name='Notes' component={Notes} />
+            <Stack.Screen name='NoteDetail' component={NoteDetail} />
             <Stack.Screen name='To Do List' component={Todo} />
             <Stack.Screen name='Encouragement Notes!' component={Encouragement} /> 
-            <Stack.Screen name='Leaderboard' component={Leaderboard} />
-            <Stack.Screen name='NoteDetail' component={NoteDetail} />
+            <Stack.Screen name='Leaderboard' component={Leaderboard} /> 
+            <Stack.Screen name='Edit Profile' component={EditProfile} 
+              options={({ navigation }) => ({
+                headerTitleStyle: {
+                  color: '#f6f6f6'
+                },
+                headerStyle: {
+                  backgroundColor: '#007788'
+                },
+                headerTitleAlign: 'center',
+                headerLeft: () => (
+                  <Feather
+                    name='arrow-left' 
+                    size={22} 
+                    onPress={() => {
+                      Alert.alert(
+                        "Discard changes", 
+                        "Are you sure you want to discard all changes",
+                        [ 
+                          {text: 'Yes', onPress: () => navigation.goBack()},
+                          {text: 'No', onPress: () => console.log('canceled'), style: 'cancel' },
+                          
+                        ],
+                        {cancelable: false} )
+                    } }
+                    color='#f6f6f6' />
+                )
+              })} /> 
+                          {/* <Stack.Screen
+                name='Tasks'
+                component={Tasks}
+                options={({route}) => ({
+                  headerBackVisible:false,
+                  title:route.params.name,
+                  headerTitleStyle:{fontWeight:'bold'},
+                  headerTitleAlign:'center'
+                })}
+                /> */}
+
+            <Stack.Screen 
+                name='Task' 
+                component={Tasks} /> 
+
+              <Stack.Screen 
+                name='Chatroom' 
+                component={Chat} /> 
+            
+
+            <Stack.Screen name='Encouragement' component={EncourageMessage} /> 
+            <Stack.Screen name='Home' component={Home} /> 
             
           </Stack.Navigator>
         </NoteProvider>
@@ -73,8 +124,6 @@ export default function App() {
      
     )
   }
-
-
 }
 
 const styles = StyleSheet.create({

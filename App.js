@@ -8,6 +8,7 @@ import Profile from './src/screens/profile';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 import { Feather } from '@expo/vector-icons'
 
 export default function App() {

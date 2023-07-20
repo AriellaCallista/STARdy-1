@@ -5,8 +5,6 @@ import { StyleSheet, Text, View, TextInput, Button, Image, TouchableOpacity, Ale
 import MainTab from '../navigation/mainTab';
 
 import { FontAwesome } from '@expo/vector-icons';
-
-
 import { doc, setDoc, addDoc, collection, getDoc } from "firebase/firestore"; 
 import { db } from '../../config';
 import { authentication } from '../../config';

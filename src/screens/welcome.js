@@ -44,15 +44,6 @@ export default function Welcome({ navigation }) {
         await schedulePushNotification();
     }
 
-    return (
-        <View style={styles.container}>
-            <Text style={styles.titleText}>STARdy</Text>
-                <TouchableOpacity style={styles.button} onPress={pressHandler} activeOpacity={0.5}>
-                    <Text style={styles.buttonText}>Start Today</Text>
-                </TouchableOpacity>
-            <Image source={require('../../assets/star-icon.png')} style={styles.image} />
-        </View>
-    );
 }
 //Welcome
 

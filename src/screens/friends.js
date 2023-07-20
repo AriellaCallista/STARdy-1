@@ -1,5 +1,10 @@
-import { View, Text, FlatList, StyleSheet } from 'react-native'
-import React, { useState } from 'react'
+import { View, Text, FlatList, StyleSheet, Image } from 'react-native'
+import React, { useState, useEffect } from 'react'
+
+
+import { db, authentication } from '../../config';
+
+import { doc, getDoc, get, where, Filter, getDocs, query, collection, setDoc, orderBy, limit} from "firebase/firestore";
 
 import { FontAwesome } from '@expo/vector-icons';
 
@@ -8,37 +13,53 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const Friends = () => {
 
+    const friendsRef = collection(db, "friends", authentication.currentUser.uid, "userFriends")
+    const friendsQuery = query(friendsRef, orderBy("xp", "desc"), limit(20));
+
+    const [friends, setFriends] = useState([])
+
+    useEffect(() => {
+        getDocs(friendsQuery)
+            .then((snapshot) => {
+              let users = snapshot.docs.map(doc => {
+                  const data = doc.data(); 
+                  const id = doc.id; 
+                  return { id, ...data }
+              }); 
+              setFriends(users);
+              console.log(users);
+            })
+      },[])
+
     const [top10, setTop10] = useState([
         { name: 'Melissa Jane', level: 10, xp: 20000, id: '1' },
-        { name: 'Melissa Jane', level: 9, xp: 10000, id: '2'  },
-        { name: 'Melissa Jane', level: 8, xp: 9000, id: '3'  },
-    
+        { name: 'Alexis Bernie', level: 9, xp: 10000, id: '2'  },
+        { name: 'Christopher J', level: 8, xp: 9000, id: '3'  },
     ]);
-
-    const [rank, setRank] = useState(0)
 
   return (
     <View style={styles.container}>
         <FlatList 
             keyExtractor={(item) => item.id}
-            data={top10}
+            data={friends}
             renderItem={({ item }) => (
                 
                 <View style={styles.tag}>
                     <View style={{padding: 20}}>
-                        { item.id == 1 
+                        { item.rank == 1 
                             ? <MaterialCommunityIcons name="medal" size={24} color="#fcc201" /> 
-                            : item.id == 2
+                            : item.rank == 2
                             ? <MaterialCommunityIcons name="medal" size={24} color="#c0c0c0" />
-                            : item.id == 3
+                            : item.rank == 3
                             ? <MaterialCommunityIcons name="medal" size={24} color="#cd7f32" />
-                            : <Text style={styles.rank}>{item.id}</Text> }
+                            : <Text style={styles.rank}>{item.rank}</Text> }
                         
 
                     </View>
 
                     <View style={{marginRight: 20}}>
-                        <FontAwesome name="user-circle-o" size={40} color="black" />
+                        {/* <FontAwesome name="user-circle-o" size={40} color="black" /> */}
+                        <Image style={[styles.image, styles.imageContent]} source={{ uri: item.photoURL }} />
                     </View>
 
                     <View style={{
@@ -108,7 +129,12 @@ const styles=StyleSheet.create({
     },
     level: {
         fontSize: 15
-    }
+    },
+    image: {
+        width: 45,
+        height: 45,
+        borderRadius: 22.5,
+    },
 })
 
 export default Friends;

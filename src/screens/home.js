@@ -1,154 +1,110 @@
-import { View, Text, StyleSheet, Image } from 'react-native'
-import React from 'react'
+import { FlatList, StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { collection, onSnapshot, where, query } from 'firebase/firestore'
+import { authentication, db } from '../../config'
+import { ListItem } from '../components/tasks/listItem'
 
-import { MaterialIcons } from '@expo/vector-icons';
+export default function Home({navigation}) {
+  const [users, setUsers] = useState([]);
 
-const Analytics = () => {
-  const date = new Date(Date.now());
-  const month = date.getMonth();
-  const year= date.getFullYear();
+  const logoutUser = async () => {
+    authentication.signOut()
+    .then(() => {
+      navigation.replace('Login')
+    })
+  }
+ 
+  const getUsers =  () => {
+    const docsRef = collection(db, 'focusSession', authentication.currentUser.email, 'partners');
+    const q =  query(docsRef, where('active', '==', true));
+    const docsSnap = onSnapshot(q, (onSnap) => {
+      let data = [];
+      onSnap.docs.forEach(async user => {
+        data.push({...user.data()})
+        setUsers(data)      
+      })
+    })
+  }
+
+  useEffect(() => {
+    getUsers();
+    console.log(users);
+  },[])
+
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.headerTitleContainer}>
-          { month == 1 
-            ? <Text style={styles.headerTitle}>{'January ' + year}</Text>
-            : month == 2
-            ? <Text style={styles.headerTitle}>{'February ' + year}</Text>
-            : month == 3 
-            ? <Text style={styles.headerTitle}>{'March ' + year}</Text>
-            : month == 4
-            ? <Text style={styles.headerTitle}>{'April ' + year}</Text>
-            : month == 5
-            ? <Text style={styles.headerTitle}>{'May ' + year}</Text>
-            : month == 6 
-            ? <Text style={styles.headerTitle}>{'June' + year}</Text>
-            : month == 7
-            ? <Text style={styles.headerTitle}>{'July ' + year}</Text>
-            : month == 8
-            ? <Text style={styles.headerTitle}>{'August ' + year}</Text>
-            : month == 9
-            ? <Text style={styles.headerTitle}>{'September ' + year}</Text>
-            : month == 10
-            ? <Text style={styles.headerTitle}>{'October ' + year}</Text>
-            : month == 11
-            ? <Text style={styles.headerTitle}>{'November ' + year}</Text>
-            : month = 12
-            ? <Text style={styles.headerTitle}>{'December ' + year}</Text>
-            : <Text style={styles.headerTitle}>Analytics</Text>}
-          
-        </View>
-      </View>
-
-      <View style={styles.graphContainer}>
-        <View style={styles.bar}>
-          <Image source={require('../../assets/bar-graph.jpeg')} style={styles.image} />
-        </View>
-      </View>
-
-      <View style={styles.graphContainer}>
-        <View style={styles.bar}>
-          <Image source={require('../../assets/line-graph.png')} style={styles.image} />
-        </View>
-      </View>
-      
-      
-          <View style={styles.textContainer}>
-            <View style={{}}>
-              <Text style={{marginLeft: 0,...styles.text}}>Streak</Text>
-            </View>
-            <View style={{}}>
-              <Text style={{marginLeft: 180, ...styles.text}}>1</Text>
-            </View>
-            
-            <MaterialIcons name="local-fire-department" size={28} color="orange" />
-            
+    <>
+      <TouchableOpacity onPress={logoutUser}>
+          <View style={styles.button}>
+              <Text style={styles.buttonText}>Logout</Text>
           </View>
+      </TouchableOpacity>
 
-          <View style={styles.textContainer}>
-            <View style={{}}>
-              <Text style={{marginLeft: 0,...styles.text}}>Focus Sessions</Text>
-            </View>
-            <View style={{}}>
-              <Text style={{marginLeft: 0, ...styles.text}}>10</Text>
-            </View>
+      {/* <View style={styles.empty}>
+        <Text style={styles.emptyText}>Send your evidence here!</Text>
+      </View> */}
+
+      <FlatList
+      data={users}
+      key={user => user.email}
+      renderItem={({item}) => 
+          {
+            // console.log(item.matched)
+            //console.log(item.userID)
             
-          </View>
+            // console.log(authentication.currentUser.uid)
+            // only display chats of users that are matched with the current user
+              return (
+                <ListItem 
+                  onPress={() => navigation.navigate('Task', {name:item.name, uid:item.userID, userAvatar:item.photoURL, email: item.email})}
+                  title={item.name}
+                  image={item.photoURL}
+                  />
+              )
+          }}
+      />
+
+      
+
+  </>
+  </View>
     
-      
-      
-    </View>
   )
 }
 
-
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#eef1e1',
-    flex: 1,
-   
+  container:{
+      flex:1, 
+      backgroundColor: '#eef1e1',
   },
-  header: {
+  button: {
+    borderRadius: 100,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
     backgroundColor: '#007788',
-    height: 95,
     flexDirection: 'column',
     justifyContent: 'center',
-    alignContent: 'center',
-    paddingTop: 35
+    width: 100,
+    marginBottom: 10, 
+    marginTop: 45,
+    marginLeft: 20
   },
-  headerTitleContainer: {
-    height: 40, 
-    justifyContent: 'center', 
-    alignItems: 'center', 
-  },
-  headerTitle: {
-    fontSize: 18,
+  buttonText: {
+    color: '#f6f6f6',
     fontWeight: 'bold',
-    color: 'white'
-  },
-  bar: {
-    backgroundColor: 'white',
-    height: 200,
-    paddingHorizontal: 20,
-    padding: 20,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  image: {
-    height: 350,
-    width: 350,
-    //marginLeft: 100,
-    resizeMode: 'contain'
-
-  },
-  graphContainer: {
-    padding: 20
-  },
-  textContainer: {
-    width: 325,
-    padding: 10,
-    backgroundColor: 'white',
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    marginLeft: 30,
-    marginTop: 20,
-    //borderWidth: 0.2,
-    //borderColor: '#171717',
-    borderRadius: 10,
-    shadowColor: '#171717',
-    shadowOffset: {width: 2, height: 2},
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
-
-
-  },
-  text: {
+    fontFamily: 'RowdiesRegular', 
+    fontSize: 14,
     textAlign: 'center',
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#007788'
+  },
+  empty: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignContent: 'center',
+    alignItems: 'center'
+  }, 
+  emptyText: {
+    fontSize: 24,
+    opacity: 0.5
   }
 })
-export default Analytics;

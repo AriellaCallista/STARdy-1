@@ -2,10 +2,10 @@ import { Alert, StyleSheet, Text, View } from 'react-native';
 import { useFonts } from 'expo-font';
 
 import Welcome from './src/screens/welcome';
-import SignUp from './src/screens/signup';
-import Login from './src/screens/login';
-import Profile from './src/screens/profile';
+import Login from './src/screens/login'; 
 import MainTab from './src/navigation/mainTab';
+import SignUp from './src/screens/signup';
+
 
 
 import { NavigationContainer } from '@react-navigation/native';
@@ -15,7 +15,6 @@ import { Feather } from '@expo/vector-icons'
 
 export default function App() {
 
-  const Stack = createNativeStackNavigator();
   const Stack = createNativeStackNavigator();
 
   const[fontsLoaded] = useFonts({
@@ -32,26 +31,29 @@ export default function App() {
     return (
 
       <NavigationContainer>
-        <Stack.Navigator screenOptions={({ navigation }) => ({
-          headerTitleStyle: {
-            color: '#f6f6f6'
-          },
-          headerStyle: {
-            backgroundColor: '#007788'
-          },
-          headerTitleAlign: 'center',
-          headerLeft: () => (
-            <Feather
-              name='arrow-left' 
-              size={22} 
-              onPress={() => navigation.goBack() }
-              color='#f6f6f6' />
-          )
-        })}>
+        <NoteProvider>
+          <Stack.Navigator screenOptions={({ navigation }) => ({
+            headerTitleStyle: {
+              color: '#f6f6f6'
+            },
+            headerStyle: {
+              backgroundColor: '#007788'
+            },
+            headerTitleAlign: 'center',
+            headerLeft: () => (
+              <Feather
+                name='arrow-left' 
+                size={22} 
+                onPress={() => navigation.goBack()}
+                color='#f6f6f6' />
+            )
+          })}>
             <Stack.Screen name='Welcome' component={Welcome} options={{ headerShown: false }}/>
             <Stack.Screen name='Login' component={Login} options={{ headerShown: false }}/>
+            <Stack.Screen name='Sign Up' component={SignUp} options={{ headerShown: false }}/>
             <Stack.Screen name='Main Tab' component={MainTab} options={{ headerShown: false }}/>
-        </Stack.Navigator>
+          </Stack.Navigator>
+        </NoteProvider>
       </NavigationContainer>
     )
   }
@@ -59,14 +61,6 @@ export default function App() {
 
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 const styles = StyleSheet.create({
   container: {
     flex: 1,

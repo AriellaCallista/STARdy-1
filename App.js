@@ -4,15 +4,22 @@ import { useFonts } from 'expo-font';
 import Welcome from './src/screens/welcome';
 import Login from './src/screens/login'; 
 import MainTab from './src/navigation/mainTab';
-import SignUp from './src/screens/signup';
-import Profile from './src/screens/profile';
+import Todo from './src/screens/todo';
+import Notes from './src/screens/notes';
+import Encouragement from './src/screens/encouragement';
+import EditProfile from './src/screens/editProfile';
+import Login from './src/screens/login';
 
+import NoteDetail from './src/components/dashboard/notes/noteDetail';
 
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { Feather } from '@expo/vector-icons'
+import NoteProvider from './src/context/noteProvider';
+import Leaderboard from './src/screens/leaderboard';
+
 
 export default function App() {
 
@@ -45,18 +52,25 @@ export default function App() {
               <Feather
                 name='arrow-left' 
                 size={22} 
-                onPress={() => navigation.goBack()}
+                onPress={() => navigation.goBack() }
                 color='#f6f6f6' />
             )
           })}>
             <Stack.Screen name='Welcome' component={Welcome} options={{ headerShown: false }}/>
-            <Stack.Screen name='Login' component={Login} options={{ headerShown: false }}/>
             <Stack.Screen name='Sign Up' component={SignUp} options={{ headerShown: false }}/>
             <Stack.Screen name='Profile' component={Profile} options={{ headerShown: false }}/>
-            <Stack.Screen name='Main Tab' component={MainTab} options={{ headerShown: false }}/>
+            <Stack.Screen name='MainTab' children={MainTab} options={{ headerShown: false }}/>
+            <Stack.Screen name='Notes' component={Notes} />
+            <Stack.Screen name='To Do List' component={Todo} />
+            <Stack.Screen name='Encouragement Notes!' component={Encouragement} /> 
+            <Stack.Screen name='Leaderboard' component={Leaderboard} />
+            <Stack.Screen name='NoteDetail' component={NoteDetail} />
+            
           </Stack.Navigator>
         </NoteProvider>
+      
       </NavigationContainer>
+     
     )
   }
 

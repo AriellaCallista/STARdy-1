@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { collection, onSnapshot, where, query } from 'firebase/firestore'
 import { authentication, db } from '../../config'
 import { ListItem } from '../components/chat/listItem'
+import { fetchChatrooms } from '../api/firestore'
 
 export default function HomeChat({navigation}) {
   const [users, setUsers] = useState([]);
@@ -13,23 +14,11 @@ export default function HomeChat({navigation}) {
       navigation.replace('Login')
     })
   }
- 
-  const getUsers =  () => {
-    // const docsRef = collection(db, 'users');
-    // const q =  query(docsRef, where('userUID', '!=', authentication?.currentUser?.uid ));
-    const q = query(collection(db, 'focusSession', authentication.currentUser.email, 'partners'));
-    const docsSnap = onSnapshot(q, (onSnap) => {
-      let data = [];
-      onSnap.docs.forEach(user => {
-        data.push({...user.data()})
-        setUsers(data)
-        console.log(user.data())
-        
-      })
-    })
-  }
+
+
   useEffect(() => {
-    getUsers();
+    fetchChatrooms()
+      .then(setUsers)
   },[])
 
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, title, button, Button, TouchableOpacity} from 'react-native';
-import AddTodo from '../components/dashboard/addTodo';
+import AddTodo from '../components/dashboard/todo/addTodo';
 
 export default function Todo( navigation ) {
 

@@ -15,25 +15,10 @@ export default function Chat({route, navigation}) {
   const [messages, setMessages] = useState([]);
   const currentUser = authentication?.currentUser?.uid;
 
-  // useEffect(() => {
-  //   setMessages([
-  //     {
-  //       _id: 1,
-  //       text: 'Hello developer',
-  //       createdAt: new Date(),
-  //       user: {
-  //         _id: 2,
-  //         name: 'React Native',
-  //         avatar: 'https://placeimg.com/140/140/any', https://bootdey.com/img/Content/avatar/avatar1.png
-  //       },
-  //     },
-  //   ])
-  // }, [])
-
   //userAvatar 
   const [photoURL, setPhotoURL] = useState(null);
 
-  const docRef = doc(db, "users", authentication.currentUser.email);
+  const docRef = doc(db, "users", authentication.currentUser.uid);
   useFocusEffect(
     useCallback(() => {
         getDoc(docRef)

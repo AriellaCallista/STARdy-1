@@ -8,6 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { useNotes } from '../../../context/noteProvider';
 import NoteInputModal from './noteInputModal';
+import { authentication } from '../../../../config';
 
 
 const formatDate = (ms) => {
@@ -18,11 +19,8 @@ const formatDate = (ms) => {
     const hrs = date.getHours();
     const min = date.getMinutes();
     const sec = date.getSeconds();
-    const time = date.getUTCDate();
 
-    //return `${day}/${month}/${year} - ${hrs}:${min}:${sec}`
-    return `${day}/${min}/${sec} - ${time}`
-
+    return `${day}/${month}/${year} - ${hrs}:${min}:${sec}`
 
 }
 

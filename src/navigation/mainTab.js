@@ -1,16 +1,11 @@
 import React from 'react';
 import { StyleSheet, View, Text, Platform } from 'react-native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-
-import Analytics from '../screens/analytics';
 import Dashboard from '../screens/dashboard';
 import FocusTimer from '../screens/focusTimer';
 import SessionUsers from '../screens/sessionUsers';
 import HomeChat from '../screens/homeChat';
-
-
 import { FontAwesome } from '@expo/vector-icons';
-import { SimpleLineIcons } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons'
 import { Ionicons } from '@expo/vector-icons';
 

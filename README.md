@@ -1,13 +1,13 @@
 
-STARdy 
+## STARdy 
 
-Team Name: 
+# Team Name: 
 Stardy
 
-Proposed Level of Achievement: 
+# Proposed Level of Achievement: 
 Apollo 11
 
-Motivation: 
+# Motivation: 
 It is difficult to concentrate and ensure productivity when working on work individually. In addition, individuals are more prone to procrastination without someone monitoring them. The long and tedious school work also makes students burn out and lose motivation overtime. Having a source of encouragement and someone to support them will greatly boost their efficiency and lighten their stress load. 
 
 The increasing consumption of instantly gratifying social media content (i.e. TikTok videos, YouTube shorts) has also made it more difficult for people to focus on doing their work as it does not provide them the instant gratification and dopamine shot they get from social media. It is not uncommon for people to even develop an addiction over these social media content and so making them unable to do their school work or sit down and study for extended periods. 
